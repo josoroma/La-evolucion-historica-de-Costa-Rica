@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La evolución histórica de Costa Rica</title>
+  <meta name="description" content="Podcast conversacional en ocho partes sobre la historia jurídica, institucional y política de Costa Rica.">
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #fafafa;
+      --foreground: #18181b;
+      --muted: #f4f4f5;
+      --muted-foreground: #71717a;
+      --card: #ffffff;
+      --card-foreground: #18181b;
+      --border: #e4e4e7;
+      --input: #e4e4e7;
+      --primary: #18181b;
+      --primary-foreground: #fafafa;
+      --secondary: #f4f4f5;
+      --secondary-foreground: #18181b;
+      --accent: #f5f5f4;
+      --accent-foreground: #1c1917;
+      --ring: #a1a1aa;
+      --radius: 8px;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(250,250,250,0.98)),
+        radial-gradient(circle at 18% 8%, rgba(212, 175, 55, 0.10), transparent 30%),
+        radial-gradient(circle at 78% 12%, rgba(20, 184, 166, 0.08), transparent 28%),
+        var(--background);
+      color: var(--foreground);
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    header {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      padding: 28px 0 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--muted-foreground);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 840px;
+      margin: 0;
+      font-size: clamp(36px, 7vw, 76px);
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    .lede {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: var(--muted-foreground);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 9px 13px;
+      background: var(--card);
+      color: var(--card-foreground);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.03);
+      cursor: pointer;
+    }
+
+    .button.primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    .button:focus-visible,
+    .episode:focus-visible,
+    input[type="range"]:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 20px;
+      padding-top: 22px;
+    }
+
+    .player-panel,
+    .playlist-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.86);
+      box-shadow: 0 18px 40px rgba(24, 24, 27, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .player-panel { padding: 22px; }
+
+    .cover {
+      display: grid;
+      min-height: 340px;
+      align-content: end;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      background:
+        linear-gradient(145deg, rgba(24,24,27,0.92), rgba(68,64,60,0.86)),
+        linear-gradient(45deg, #0f766e, #d4af37);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: calc(var(--radius) - 2px);
+      pointer-events: none;
+    }
+
+    .cover-title {
+      position: relative;
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .cover-subtitle {
+      position: relative;
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.55;
+    }
+
+    .now-playing {
+      display: grid;
+      gap: 12px;
+      padding-top: 18px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .episode-kicker {
+      margin: 0;
+      color: var(--muted-foreground);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 2px 0 0;
+      font-size: 25px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .description {
+      margin: 0;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+    }
+
+    audio { width: 100%; }
+
+    .timeline {
+      display: grid;
+      gap: 8px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted-foreground);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .playlist-panel { overflow: hidden; }
+
+    .playlist-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .playlist-header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .playlist-header span {
+      color: var(--muted-foreground);
+      font-size: 13px;
+    }
+
+    .playlist {
+      display: grid;
+      max-height: 680px;
+      overflow: auto;
+    }
+
+    .episode {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .episode:hover,
+    .episode.active {
+      background: var(--accent);
+    }
+
+    .episode-number {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .episode-title {
+      display: block;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .episode-summary {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted-foreground);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .duration {
+      color: var(--muted-foreground);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 20px;
+      color: var(--muted-foreground);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      header,
+      main,
+      footer {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-actions,
+      footer {
+        justify-content: flex-start;
+      }
+
+      .cover { min-height: 260px; }
+
+      .episode {
+        grid-template-columns: 38px 1fr;
+      }
+
+      .duration {
+        grid-column: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">Podcast documental</p>
+        <h1>La evolución histórica de Costa Rica</h1>
+        <p class="lede">Ocho conversaciones sobre derecho, instituciones, café, reforma social, Constitución, apertura y cultura política costarricense.</p>
+      </div>
+      <nav class="nav-actions" aria-label="Enlaces del proyecto">
+        <a class="button" href="README.md">README</a>
+        <a class="button" href="https://github.com/josoroma/La-evolucion-historica-de-Costa-Rica">GitHub</a>
+        <a class="button primary" href="#playlist">Episodios</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="player-panel" aria-label="Reproductor principal">
+        <div class="cover">
+          <h2 class="cover-title">Entre libertad y justicia social</h2>
+          <p class="cover-subtitle">Dos voces, una mesa de café y la historia jurídica de Costa Rica contada con calma.</p>
+        </div>
+
+        <div class="now-playing">
+          <div class="meta-row">
+            <div>
+              <p class="episode-kicker" id="episodeKicker">Parte 1</p>
+              <h2 id="episodeTitle">La pregunta costarricense</h2>
+            </div>
+            <a class="button" id="downloadLink" href="audio/01-la-pregunta-costarricense.mp3" download>Descargar</a>
+          </div>
+
+          <p class="description" id="episodeDescription">Prólogo, método, raíces coloniales, Derecho Indiano, cabildos y pequeña propiedad.</p>
+
+          <audio id="audio" preload="metadata" controls src="audio/01-la-pregunta-costarricense.mp3"></audio>
+
+          <div class="timeline" aria-label="Progreso del episodio">
+            <input id="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso">
+            <div class="time-row">
+              <span id="currentTime">0:00</span>
+              <span id="duration">10:37</span>
+            </div>
+          </div>
+
+          <div class="controls" aria-label="Controles de reproducción">
+            <button class="button" id="previousButton" type="button">Anterior</button>
+            <button class="button primary" id="playButton" type="button">Reproducir</button>
+            <button class="button" id="nextButton" type="button">Siguiente</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="playlist-panel" id="playlist" aria-label="Lista de episodios">
+        <div class="playlist-header">
+          <h2>Episodios completos</h2>
+          <span>8 partes</span>
+        </div>
+        <div class="playlist" id="episodeList"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Publicado como sitio estático para GitHub Pages.</span>
+      <span>Audio generado con voces neurales en español de Costa Rica.</span>
+    </footer>
+  </div>
+
+  <script>
+    const episodes = [
+      {
+        number: 1,
+        title: "La pregunta costarricense",
+        summary: "Prólogo, método, raíces coloniales, Derecho Indiano, cabildos y pequeña propiedad.",
+        duration: "10:37",
+        src: "audio/01-la-pregunta-costarricense.mp3"
+      },
+      {
+        number: 2,
+        title: "Independencia y primer Estado",
+        summary: "Independencia recibida, Pacto de Concordia, Federación Centroamericana, Braulio Carrillo y Campaña Nacional.",
+        duration: "5:08",
+        src: "audio/02-independencia-y-estado.mp3"
+      },
+      {
+        number: 3,
+        title: "Café, liberalismo y Estado",
+        summary: "Era del café, Constitución de 1871, codificación, ferrocarril, banano y límites del liberalismo.",
+        duration: "4:48",
+        src: "audio/03-cafe-liberalismo-y-estado.mp3"
+      },
+      {
+        number: 4,
+        title: "Secularización y educación",
+        summary: "Conflicto Iglesia-Estado, matrimonio civil, cementerios laicos, registro civil y educación pública laica.",
+        duration: "4:32",
+        src: "audio/04-secularizacion-y-educacion.mp3"
+      },
+      {
+        number: 5,
+        title: "Cuestión social y reforma de los cuarenta",
+        summary: "Movimientos obreros, catolicismo social, CCSS, Garantías Sociales, Código de Trabajo y UCR.",
+        duration: "4:59",
+        src: "audio/05-cuestion-social-y-reforma.mp3"
+      },
+      {
+        number: 6,
+        title: "Guerra Civil y Constitución de 1949",
+        summary: "Crisis electoral, Junta Fundadora, abolición del ejército, nacionalización bancaria, TSE y Constitución.",
+        duration: "4:28",
+        src: "audio/06-guerra-civil-y-constitucion-1949.mp3"
+      },
+      {
+        number: 7,
+        title: "Desarrollismo, apertura y zonas francas",
+        summary: "PLN, ICE, CODESA, ajuste estructural, tratados comerciales, Intel y régimen de zonas francas.",
+        duration: "4:42",
+        src: "audio/07-desarrollismo-apertura-y-zonas-francas.mp3"
+      },
+      {
+        number: 8,
+        title: "Sala IV, cultura política y síntesis",
+        summary: "Sala Constitucional, amparo, Estado social de derecho, cultura política y síntesis ideológica.",
+        duration: "4:45",
+        src: "audio/08-sala-iv-cultura-politica-y-sintesis.mp3"
+      }
+    ];
+
+    const audio = document.querySelector("#audio");
+    const episodeKicker = document.querySelector("#episodeKicker");
+    const episodeTitle = document.querySelector("#episodeTitle");
+    const episodeDescription = document.querySelector("#episodeDescription");
+    const episodeList = document.querySelector("#episodeList");
+    const downloadLink = document.querySelector("#downloadLink");
+    const playButton = document.querySelector("#playButton");
+    const previousButton = document.querySelector("#previousButton");
+    const nextButton = document.querySelector("#nextButton");
+    const seek = document.querySelector("#seek");
+    const currentTime = document.querySelector("#currentTime");
+    const duration = document.querySelector("#duration");
+
+    let activeIndex = 0;
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const rest = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${rest}`;
+    }
+
+    function renderPlaylist() {
+      episodeList.innerHTML = "";
+      episodes.forEach((episode, index) => {
+        const button = document.createElement("button");
+        button.className = `episode${index === activeIndex ? " active" : ""}`;
+        button.type = "button";
+        button.innerHTML = `
+          <span class="episode-number">${episode.number.toString().padStart(2, "0")}</span>
+          <span>
+            <span class="episode-title">${episode.title}</span>
+            <span class="episode-summary">${episode.summary}</span>
+          </span>
+          <span class="duration">${episode.duration}</span>
+        `;
+        button.addEventListener("click", () => loadEpisode(index, true));
+        episodeList.appendChild(button);
+      });
+    }
+
+    function loadEpisode(index, shouldPlay = false) {
+      activeIndex = (index + episodes.length) % episodes.length;
+      const episode = episodes[activeIndex];
+      audio.src = episode.src;
+      episodeKicker.textContent = `Parte ${episode.number}`;
+      episodeTitle.textContent = episode.title;
+      episodeDescription.textContent = episode.summary;
+      downloadLink.href = episode.src;
+      duration.textContent = episode.duration;
+      seek.value = 0;
+      currentTime.textContent = "0:00";
+      renderPlaylist();
+      if (shouldPlay) audio.play();
+    }
+
+    playButton.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    previousButton.addEventListener("click", () => loadEpisode(activeIndex - 1, true));
+    nextButton.addEventListener("click", () => loadEpisode(activeIndex + 1, true));
+
+    audio.addEventListener("play", () => { playButton.textContent = "Pausar"; });
+    audio.addEventListener("pause", () => { playButton.textContent = "Reproducir"; });
+    audio.addEventListener("ended", () => loadEpisode(activeIndex + 1, true));
+    audio.addEventListener("loadedmetadata", () => {
+      if (Number.isFinite(audio.duration)) duration.textContent = formatTime(audio.duration);
+    });
+    audio.addEventListener("timeupdate", () => {
+      if (!Number.isFinite(audio.duration)) return;
+      seek.value = (audio.currentTime / audio.duration) * 100;
+      currentTime.textContent = formatTime(audio.currentTime);
+    });
+
+    seek.addEventListener("input", () => {
+      if (!Number.isFinite(audio.duration)) return;
+      audio.currentTime = (Number(seek.value) / 100) * audio.duration;
+    });
+
+    renderPlaylist();
+  </script>
+</body>
+</html>

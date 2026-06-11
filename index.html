@@ -238,6 +238,105 @@
       align-items: center;
     }
 
+    .transcript-panel {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--card);
+    }
+
+    .transcript-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .transcript-header h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .transcript-header span {
+      color: var(--muted-foreground);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .transcript-current {
+      min-height: 94px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--accent);
+    }
+
+    .transcript-speaker {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted-foreground);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .transcript-line {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .transcript-list {
+      display: grid;
+      max-height: 260px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .transcript-cue {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 10px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .transcript-cue:last-child { border-bottom: 0; }
+
+    .transcript-cue:hover,
+    .transcript-cue.active {
+      background: var(--accent);
+    }
+
+    .transcript-cue time {
+      color: var(--muted-foreground);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .transcript-cue strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .transcript-cue span {
+      color: var(--muted-foreground);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     .playlist-panel { overflow: hidden; }
 
     .playlist-header {
@@ -397,6 +496,18 @@
             <button class="button primary" id="playButton" type="button">Reproducir</button>
             <button class="button" id="nextButton" type="button">Siguiente</button>
           </div>
+
+          <section class="transcript-panel" aria-label="Transcripción sincronizada">
+            <div class="transcript-header">
+              <h3>Transcripción sincronizada</h3>
+              <span id="transcriptStatus">Cargando</span>
+            </div>
+            <div class="transcript-current" aria-live="polite">
+              <span class="transcript-speaker" id="activeSpeaker">Transcripción</span>
+              <p class="transcript-line" id="activeLine">La línea activa aparecerá aquí conforme avance el audio.</p>
+            </div>
+            <div class="transcript-list" id="transcriptList"></div>
+          </section>
         </div>
       </section>
 
@@ -422,56 +533,64 @@
         title: "La pregunta costarricense",
         summary: "Prólogo, método, raíces coloniales, Derecho Indiano, cabildos y pequeña propiedad.",
         duration: "10:37",
-        src: "audio/01-la-pregunta-costarricense.mp3"
+        src: "audio/01-la-pregunta-costarricense.mp3",
+        transcript: "transcripts/01-la-pregunta-costarricense.vtt"
       },
       {
         number: 2,
         title: "Independencia y primer Estado",
         summary: "Independencia recibida, Pacto de Concordia, Federación Centroamericana, Braulio Carrillo y Campaña Nacional.",
         duration: "5:08",
-        src: "audio/02-independencia-y-estado.mp3"
+        src: "audio/02-independencia-y-estado.mp3",
+        transcript: "transcripts/02-independencia-y-estado.vtt"
       },
       {
         number: 3,
         title: "Café, liberalismo y Estado",
         summary: "Era del café, Constitución de 1871, codificación, ferrocarril, banano y límites del liberalismo.",
         duration: "4:48",
-        src: "audio/03-cafe-liberalismo-y-estado.mp3"
+        src: "audio/03-cafe-liberalismo-y-estado.mp3",
+        transcript: "transcripts/03-cafe-liberalismo-y-estado.vtt"
       },
       {
         number: 4,
         title: "Secularización y educación",
         summary: "Conflicto Iglesia-Estado, matrimonio civil, cementerios laicos, registro civil y educación pública laica.",
         duration: "4:32",
-        src: "audio/04-secularizacion-y-educacion.mp3"
+        src: "audio/04-secularizacion-y-educacion.mp3",
+        transcript: "transcripts/04-secularizacion-y-educacion.vtt"
       },
       {
         number: 5,
         title: "Cuestión social y reforma de los cuarenta",
         summary: "Movimientos obreros, catolicismo social, CCSS, Garantías Sociales, Código de Trabajo y UCR.",
         duration: "4:59",
-        src: "audio/05-cuestion-social-y-reforma.mp3"
+        src: "audio/05-cuestion-social-y-reforma.mp3",
+        transcript: "transcripts/05-cuestion-social-y-reforma.vtt"
       },
       {
         number: 6,
         title: "Guerra Civil y Constitución de 1949",
         summary: "Crisis electoral, Junta Fundadora, abolición del ejército, nacionalización bancaria, TSE y Constitución.",
         duration: "4:28",
-        src: "audio/06-guerra-civil-y-constitucion-1949.mp3"
+        src: "audio/06-guerra-civil-y-constitucion-1949.mp3",
+        transcript: "transcripts/06-guerra-civil-y-constitucion-1949.vtt"
       },
       {
         number: 7,
         title: "Desarrollismo, apertura y zonas francas",
         summary: "PLN, ICE, CODESA, ajuste estructural, tratados comerciales, Intel y régimen de zonas francas.",
         duration: "4:42",
-        src: "audio/07-desarrollismo-apertura-y-zonas-francas.mp3"
+        src: "audio/07-desarrollismo-apertura-y-zonas-francas.mp3",
+        transcript: "transcripts/07-desarrollismo-apertura-y-zonas-francas.vtt"
       },
       {
         number: 8,
         title: "Sala IV, cultura política y síntesis",
         summary: "Sala Constitucional, amparo, Estado social de derecho, cultura política y síntesis ideológica.",
         duration: "4:45",
-        src: "audio/08-sala-iv-cultura-politica-y-sintesis.mp3"
+        src: "audio/08-sala-iv-cultura-politica-y-sintesis.mp3",
+        transcript: "transcripts/08-sala-iv-cultura-politica-y-sintesis.vtt"
       }
     ];
 
@@ -487,8 +606,14 @@
     const seek = document.querySelector("#seek");
     const currentTime = document.querySelector("#currentTime");
     const duration = document.querySelector("#duration");
+    const transcriptStatus = document.querySelector("#transcriptStatus");
+    const activeSpeaker = document.querySelector("#activeSpeaker");
+    const activeLine = document.querySelector("#activeLine");
+    const transcriptList = document.querySelector("#transcriptList");
 
     let activeIndex = 0;
+    let cues = [];
+    let activeCueIndex = -1;
 
     function formatTime(seconds) {
       if (!Number.isFinite(seconds)) return "0:00";
@@ -516,6 +641,111 @@
       });
     }
 
+    function parseTimestamp(value) {
+      const parts = value.split(":");
+      const seconds = parts.pop().split(".");
+      const wholeSeconds = Number(seconds[0]);
+      const milliseconds = Number((seconds[1] || "0").padEnd(3, "0"));
+      const minutes = Number(parts.pop() || 0);
+      const hours = Number(parts.pop() || 0);
+      return hours * 3600 + minutes * 60 + wholeSeconds + milliseconds / 1000;
+    }
+
+    function parseVtt(text) {
+      return text
+        .replace(/\r/g, "")
+        .split("\n\n")
+        .map((block) => block.trim())
+        .filter((block) => block && !block.startsWith("WEBVTT") && !block.startsWith("NOTE"))
+        .map((block) => {
+          const lines = block.split("\n");
+          const timingLine = lines.find((line) => line.includes("-->"));
+          if (!timingLine) return null;
+          const [startRaw, endRaw] = timingLine.split("-->").map((part) => part.trim());
+          const textLines = lines.slice(lines.indexOf(timingLine) + 1).join(" ").trim();
+          const match = textLines.match(/^([^:]+):\s*(.*)$/);
+          return {
+            start: parseTimestamp(startRaw),
+            end: parseTimestamp(endRaw),
+            speaker: match ? match[1] : "Transcripción",
+            text: match ? match[2] : textLines
+          };
+        })
+        .filter(Boolean);
+    }
+
+    function renderTranscript() {
+      transcriptList.innerHTML = "";
+      cues.forEach((cue, index) => {
+        const button = document.createElement("button");
+        button.className = `transcript-cue${index === activeCueIndex ? " active" : ""}`;
+        button.type = "button";
+
+        const time = document.createElement("time");
+        time.textContent = formatTime(cue.start);
+
+        const body = document.createElement("span");
+        const speaker = document.createElement("strong");
+        speaker.textContent = cue.speaker;
+        const text = document.createElement("span");
+        text.textContent = cue.text;
+        body.append(speaker, text);
+
+        button.append(time, body);
+        button.addEventListener("click", () => {
+          audio.currentTime = cue.start + 0.01;
+          if (audio.paused) audio.play();
+        });
+        transcriptList.appendChild(button);
+      });
+    }
+
+    function setActiveCue(index) {
+      if (index === activeCueIndex) return;
+      activeCueIndex = index;
+      const cue = cues[index];
+      if (!cue) {
+        activeSpeaker.textContent = "Transcripción";
+        activeLine.textContent = cues.length ? "Reproduce el episodio para seguir la conversación." : "Transcripción no disponible.";
+        renderTranscript();
+        return;
+      }
+
+      activeSpeaker.textContent = cue.speaker;
+      activeLine.textContent = cue.text;
+      renderTranscript();
+      const active = transcriptList.querySelector(".transcript-cue.active");
+      active?.scrollIntoView({ block: "nearest" });
+    }
+
+    function updateTranscript() {
+      const time = audio.currentTime;
+      const index = cues.findIndex((cue) => time >= cue.start && time < cue.end);
+      setActiveCue(index);
+    }
+
+    async function loadTranscript(path) {
+      transcriptStatus.textContent = "Cargando";
+      activeSpeaker.textContent = "Transcripción";
+      activeLine.textContent = "Cargando transcripción sincronizada.";
+      transcriptList.innerHTML = "";
+      cues = [];
+      activeCueIndex = -1;
+
+      try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        cues = parseVtt(await response.text());
+        transcriptStatus.textContent = `${cues.length} líneas`;
+        renderTranscript();
+        updateTranscript();
+      } catch (error) {
+        transcriptStatus.textContent = "No disponible";
+        activeSpeaker.textContent = "Transcripción";
+        activeLine.textContent = "No se pudo cargar la transcripción de este episodio.";
+      }
+    }
+
     function loadEpisode(index, shouldPlay = false) {
       activeIndex = (index + episodes.length) % episodes.length;
       const episode = episodes[activeIndex];
@@ -528,6 +758,7 @@
       seek.value = 0;
       currentTime.textContent = "0:00";
       renderPlaylist();
+      loadTranscript(episode.transcript);
       if (shouldPlay) audio.play();
     }
 
@@ -552,6 +783,7 @@
       if (!Number.isFinite(audio.duration)) return;
       seek.value = (audio.currentTime / audio.duration) * 100;
       currentTime.textContent = formatTime(audio.currentTime);
+      updateTranscript();
     });
 
     seek.addEventListener("input", () => {
@@ -560,6 +792,7 @@
     });
 
     renderPlaylist();
+    loadTranscript(episodes[activeIndex].transcript);
   </script>
 </body>
 </html>

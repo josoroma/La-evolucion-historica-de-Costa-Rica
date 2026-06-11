@@ -40,8 +40,9 @@ También se puede abrir `index.html` directamente desde el repositorio clonado.
 
 ## Contenido del repositorio
 
-- `index.html`: reproductor web estático con playlist y controles JavaScript.
+- `index.html`: reproductor web estático con playlist, controles JavaScript y transcripción sincronizada.
 - `audio/*.mp3`: episodios completos del podcast.
+- `transcripts/*.vtt`: transcripciones WebVTT sincronizadas por intervención.
 - `.github/workflows/pages.yml`: despliegue opcional a GitHub Pages.
 
 Este repositorio no incluye fragmentos internos de generación ni segmentos parciales de audio.

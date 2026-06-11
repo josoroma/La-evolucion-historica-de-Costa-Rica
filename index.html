@@ -8,23 +8,74 @@
   <style>
     :root {
       color-scheme: light;
-      --background: #fafafa;
-      --foreground: #18181b;
-      --muted: #f4f4f5;
-      --muted-foreground: #71717a;
-      --card: #ffffff;
-      --card-foreground: #18181b;
-      --border: #e4e4e7;
-      --input: #e4e4e7;
-      --primary: #18181b;
-      --primary-foreground: #fafafa;
-      --secondary: #f4f4f5;
-      --secondary-foreground: #18181b;
-      --accent: #f5f5f4;
-      --accent-foreground: #1c1917;
-      --ring: #a1a1aa;
-      --radius: 8px;
+      --background: oklch(1 0 0);
+      --foreground: oklch(0.145 0 0);
+      --card: oklch(1 0 0);
+      --card-foreground: oklch(0.145 0 0);
+      --popover: oklch(1 0 0);
+      --popover-foreground: oklch(0.145 0 0);
+      --primary: oklch(0.488 0.243 264.376);
+      --primary-foreground: oklch(0.97 0.014 254.604);
+      --secondary: oklch(0.967 0.001 286.375);
+      --secondary-foreground: oklch(0.21 0.006 285.885);
+      --muted: oklch(0.97 0 0);
+      --muted-foreground: oklch(0.556 0 0);
+      --accent: oklch(0.97 0 0);
+      --accent-foreground: oklch(0.205 0 0);
+      --destructive: oklch(0.577 0.245 27.325);
+      --border: oklch(0.922 0 0);
+      --input: oklch(0.922 0 0);
+      --ring: oklch(0.708 0 0);
+      --chart-1: oklch(0.845 0.143 164.978);
+      --chart-2: oklch(0.696 0.17 162.48);
+      --chart-3: oklch(0.596 0.145 163.225);
+      --chart-4: oklch(0.508 0.118 165.612);
+      --chart-5: oklch(0.432 0.095 166.913);
+      --radius: 0.625rem;
+      --sidebar: oklch(0.985 0 0);
+      --sidebar-foreground: oklch(0.145 0 0);
+      --sidebar-primary: oklch(0.546 0.245 262.881);
+      --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+      --sidebar-accent: oklch(0.97 0 0);
+      --sidebar-accent-foreground: oklch(0.205 0 0);
+      --sidebar-border: oklch(0.922 0 0);
+      --sidebar-ring: oklch(0.708 0 0);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .dark {
+      color-scheme: dark;
+      --background: oklch(0.145 0 0);
+      --foreground: oklch(0.985 0 0);
+      --card: oklch(0.205 0 0);
+      --card-foreground: oklch(0.985 0 0);
+      --popover: oklch(0.205 0 0);
+      --popover-foreground: oklch(0.985 0 0);
+      --primary: oklch(0.424 0.199 265.638);
+      --primary-foreground: oklch(0.97 0.014 254.604);
+      --secondary: oklch(0.274 0.006 286.033);
+      --secondary-foreground: oklch(0.985 0 0);
+      --muted: oklch(0.269 0 0);
+      --muted-foreground: oklch(0.708 0 0);
+      --accent: oklch(0.269 0 0);
+      --accent-foreground: oklch(0.985 0 0);
+      --destructive: oklch(0.704 0.191 22.216);
+      --border: oklch(1 0 0 / 10%);
+      --input: oklch(1 0 0 / 15%);
+      --ring: oklch(0.556 0 0);
+      --chart-1: oklch(0.845 0.143 164.978);
+      --chart-2: oklch(0.696 0.17 162.48);
+      --chart-3: oklch(0.596 0.145 163.225);
+      --chart-4: oklch(0.508 0.118 165.612);
+      --chart-5: oklch(0.432 0.095 166.913);
+      --sidebar: oklch(0.205 0 0);
+      --sidebar-foreground: oklch(0.985 0 0);
+      --sidebar-primary: oklch(0.623 0.214 259.815);
+      --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+      --sidebar-accent: oklch(0.269 0 0);
+      --sidebar-accent-foreground: oklch(0.985 0 0);
+      --sidebar-border: oklch(1 0 0 / 10%);
+      --sidebar-ring: oklch(0.556 0 0);
     }
 
     * { box-sizing: border-box; }
@@ -33,9 +84,9 @@
       margin: 0;
       min-height: 100vh;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(250,250,250,0.98)),
-        radial-gradient(circle at 18% 8%, rgba(212, 175, 55, 0.10), transparent 30%),
-        radial-gradient(circle at 78% 12%, rgba(20, 184, 166, 0.08), transparent 28%),
+        linear-gradient(180deg, color-mix(in oklch, var(--background) 94%, transparent), var(--background)),
+        radial-gradient(circle at 18% 8%, color-mix(in oklch, var(--primary) 12%, transparent), transparent 30%),
+        radial-gradient(circle at 78% 12%, color-mix(in oklch, var(--chart-2) 10%, transparent), transparent 28%),
         var(--background);
       color: var(--foreground);
     }
@@ -103,7 +154,7 @@
       font-size: 14px;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 1px 1px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 1px color-mix(in oklch, var(--foreground) 3%, transparent);
       cursor: pointer;
     }
 
@@ -131,8 +182,8 @@
     .playlist-panel {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: rgba(255,255,255,0.86);
-      box-shadow: 0 18px 40px rgba(24, 24, 27, 0.08);
+      background: color-mix(in oklch, var(--card) 88%, transparent);
+      box-shadow: 0 18px 40px color-mix(in oklch, var(--foreground) 8%, transparent);
       backdrop-filter: blur(12px);
     }
 
@@ -146,9 +197,9 @@
       border-radius: var(--radius);
       padding: 22px;
       background:
-        linear-gradient(145deg, rgba(24,24,27,0.92), rgba(68,64,60,0.86)),
-        linear-gradient(45deg, #0f766e, #d4af37);
-      color: white;
+        linear-gradient(145deg, color-mix(in oklch, var(--foreground) 84%, transparent), color-mix(in oklch, var(--primary) 74%, transparent)),
+        linear-gradient(45deg, var(--chart-3), var(--primary));
+      color: var(--primary-foreground);
       overflow: hidden;
       position: relative;
     }
@@ -157,7 +208,7 @@
       content: "";
       position: absolute;
       inset: 18px;
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid color-mix(in oklch, var(--primary-foreground) 22%, transparent);
       border-radius: calc(var(--radius) - 2px);
       pointer-events: none;
     }
@@ -173,7 +224,7 @@
     .cover-subtitle {
       position: relative;
       margin: 10px 0 0;
-      color: rgba(255,255,255,0.72);
+      color: color-mix(in oklch, var(--primary-foreground) 72%, transparent);
       line-height: 1.55;
     }
 
@@ -459,6 +510,7 @@
       <nav class="nav-actions" aria-label="Enlaces del proyecto">
         <a class="button" href="README.md">README</a>
         <a class="button" href="https://github.com/josoroma/La-evolucion-historica-de-Costa-Rica">GitHub</a>
+        <button class="button" id="themeButton" type="button" aria-pressed="false">Tema oscuro</button>
         <a class="button primary" href="#playlist">Episodios</a>
       </nav>
     </header>
@@ -599,6 +651,7 @@
     const episodeTitle = document.querySelector("#episodeTitle");
     const episodeDescription = document.querySelector("#episodeDescription");
     const episodeList = document.querySelector("#episodeList");
+    const themeButton = document.querySelector("#themeButton");
     const downloadLink = document.querySelector("#downloadLink");
     const playButton = document.querySelector("#playButton");
     const previousButton = document.querySelector("#previousButton");
@@ -614,6 +667,14 @@
     let activeIndex = 0;
     let cues = [];
     let activeCueIndex = -1;
+
+    function applyTheme(theme) {
+      const isDark = theme === "dark";
+      document.documentElement.classList.toggle("dark", isDark);
+      themeButton.textContent = isDark ? "Tema claro" : "Tema oscuro";
+      themeButton.setAttribute("aria-pressed", String(isDark));
+      localStorage.setItem("theme", theme);
+    }
 
     function formatTime(seconds) {
       if (!Number.isFinite(seconds)) return "0:00";
@@ -772,6 +833,9 @@
 
     previousButton.addEventListener("click", () => loadEpisode(activeIndex - 1, true));
     nextButton.addEventListener("click", () => loadEpisode(activeIndex + 1, true));
+    themeButton.addEventListener("click", () => {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
 
     audio.addEventListener("play", () => { playButton.textContent = "Pausar"; });
     audio.addEventListener("pause", () => { playButton.textContent = "Reproducir"; });
@@ -791,6 +855,7 @@
       audio.currentTime = (Number(seek.value) / 100) * audio.duration;
     });
 
+    applyTheme(localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
     renderPlaylist();
     loadTranscript(episodes[activeIndex].transcript);
   </script>
